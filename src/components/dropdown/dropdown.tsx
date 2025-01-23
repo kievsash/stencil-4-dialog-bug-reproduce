@@ -55,11 +55,9 @@ export class Dropdown {
           Toggle Dropdown
         </button>
         <dialog open={this.isOpen}>
-          {/*<infinite-scroll>*/}
             <div class="dropdown-menu" slot="scroll-box" ref={(el) => (this.selectableListElement = el)}>
               {items}
             </div>
-          {/*</infinite-scroll>*/}
         </dialog>
 
       </div>
