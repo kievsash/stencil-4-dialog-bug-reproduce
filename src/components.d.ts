@@ -5,61 +5,87 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
+import { IItem } from "./components/dropdown/dropdown";
+export { IItem } from "./components/dropdown/dropdown";
 export namespace Components {
+    interface AppDropdown {
+        "items": IItem[];
+        "selectedItems": number[];
+    }
+    interface AppDropdownItem {
+        "label": string;
+        "selected": boolean;
+        "uid": number;
+    }
     interface AppHome {
     }
-    interface AppProfile {
-        "name": string;
-    }
-    interface AppRoot {
-    }
+}
+export interface AppDropdownItemCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLAppDropdownItemElement;
 }
 declare global {
+    interface HTMLAppDropdownElement extends Components.AppDropdown, HTMLStencilElement {
+    }
+    var HTMLAppDropdownElement: {
+        prototype: HTMLAppDropdownElement;
+        new (): HTMLAppDropdownElement;
+    };
+    interface HTMLAppDropdownItemElementEventMap {
+        "itemSelected": number;
+    }
+    interface HTMLAppDropdownItemElement extends Components.AppDropdownItem, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLAppDropdownItemElementEventMap>(type: K, listener: (this: HTMLAppDropdownItemElement, ev: AppDropdownItemCustomEvent<HTMLAppDropdownItemElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLAppDropdownItemElementEventMap>(type: K, listener: (this: HTMLAppDropdownItemElement, ev: AppDropdownItemCustomEvent<HTMLAppDropdownItemElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+    }
+    var HTMLAppDropdownItemElement: {
+        prototype: HTMLAppDropdownItemElement;
+        new (): HTMLAppDropdownItemElement;
+    };
     interface HTMLAppHomeElement extends Components.AppHome, HTMLStencilElement {
     }
     var HTMLAppHomeElement: {
         prototype: HTMLAppHomeElement;
         new (): HTMLAppHomeElement;
     };
-    interface HTMLAppProfileElement extends Components.AppProfile, HTMLStencilElement {
-    }
-    var HTMLAppProfileElement: {
-        prototype: HTMLAppProfileElement;
-        new (): HTMLAppProfileElement;
-    };
-    interface HTMLAppRootElement extends Components.AppRoot, HTMLStencilElement {
-    }
-    var HTMLAppRootElement: {
-        prototype: HTMLAppRootElement;
-        new (): HTMLAppRootElement;
-    };
     interface HTMLElementTagNameMap {
+        "app-dropdown": HTMLAppDropdownElement;
+        "app-dropdown-item": HTMLAppDropdownItemElement;
         "app-home": HTMLAppHomeElement;
-        "app-profile": HTMLAppProfileElement;
-        "app-root": HTMLAppRootElement;
     }
 }
 declare namespace LocalJSX {
+    interface AppDropdown {
+        "items"?: IItem[];
+        "selectedItems"?: number[];
+    }
+    interface AppDropdownItem {
+        "label": string;
+        "onItemSelected"?: (event: AppDropdownItemCustomEvent<number>) => void;
+        "selected"?: boolean;
+        "uid": number;
+    }
     interface AppHome {
     }
-    interface AppProfile {
-        "name"?: string;
-    }
-    interface AppRoot {
-    }
     interface IntrinsicElements {
+        "app-dropdown": AppDropdown;
+        "app-dropdown-item": AppDropdownItem;
         "app-home": AppHome;
-        "app-profile": AppProfile;
-        "app-root": AppRoot;
     }
 }
 export { LocalJSX as JSX };
 declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
+            "app-dropdown": LocalJSX.AppDropdown & JSXBase.HTMLAttributes<HTMLAppDropdownElement>;
+            "app-dropdown-item": LocalJSX.AppDropdownItem & JSXBase.HTMLAttributes<HTMLAppDropdownItemElement>;
             "app-home": LocalJSX.AppHome & JSXBase.HTMLAttributes<HTMLAppHomeElement>;
-            "app-profile": LocalJSX.AppProfile & JSXBase.HTMLAttributes<HTMLAppProfileElement>;
-            "app-root": LocalJSX.AppRoot & JSXBase.HTMLAttributes<HTMLAppRootElement>;
         }
     }
 }
